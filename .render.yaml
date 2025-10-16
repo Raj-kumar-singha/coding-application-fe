@@ -2,8 +2,10 @@ services:
   - type: web
     name: coding-application-fe
     env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: npm ci && npm run build
+    startCommand: npm run serve
     envVars:
       - key: NODE_VERSION
         value: 18.20.3
+      - key: NPM_CONFIG_PRODUCTION
+        value: false
