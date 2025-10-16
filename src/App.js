@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
@@ -40,40 +40,38 @@ const PublicRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" />} />
-              <Route 
-                path="/login" 
-                element={
-                  <PublicRoute>
-                    <Login />
-                  </PublicRoute>
-                } 
-              />
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/topic/:id" 
-                element={
-                  <ProtectedRoute>
-                    <TopicDetail />
-                  </ProtectedRoute>
-                } 
-              />
-            </Routes>
-          </main>
-        </div>
-      </Router>
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route 
+              path="/login" 
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/topic/:id" 
+              element={
+                <ProtectedRoute>
+                  <TopicDetail />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </main>
+      </div>
     </AuthProvider>
   );
 }
