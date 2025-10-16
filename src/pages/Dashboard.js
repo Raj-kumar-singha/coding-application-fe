@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 
 const Dashboard = () => {
   const [topics, setTopics] = useState([]);
@@ -15,9 +15,9 @@ const Dashboard = () => {
   const fetchData = useCallback(async () => {
     try {
       const [topicsResponse, statsResponse, progressResponse] = await Promise.all([
-        axios.get('/api/topics'),
-        axios.get('/api/progress/stats').catch(() => ({ data: { total: 0, completed: 0, remaining: 0, percentage: 0 } })),
-        axios.get('/api/progress').catch(() => ({ data: [] }))
+        api.get('/topics'),
+        api.get('/progress/stats').catch(() => ({ data: { total: 0, completed: 0, remaining: 0, percentage: 0 } })),
+        api.get('/progress').catch(() => ({ data: [] }))
       ]);
       
       const topicsData = topicsResponse.data;

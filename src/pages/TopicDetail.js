@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 
 const TopicDetail = () => {
   const { id } = useParams();
@@ -12,8 +12,8 @@ const TopicDetail = () => {
   const fetchData = useCallback(async () => {
     try {
       const [topicResponse, progressResponse] = await Promise.all([
-        axios.get(`/api/topics/${id}`),
-        axios.get('/api/progress')
+        api.get(`/topics/${id}`),
+        api.get('/progress')
       ]);
       
       setTopic(topicResponse.data);
@@ -59,7 +59,7 @@ const TopicDetail = () => {
       });
       
       // Make API call
-      await axios.post(`/api/progress/${problemId}`, { completed: newCompletedState });
+      await api.post(`/progress/${problemId}`, { completed: newCompletedState });
       
       // Notify parent component to refresh dashboard
       window.dispatchEvent(new CustomEvent('progressUpdated'));
